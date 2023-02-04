@@ -1,0 +1,112 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "price": 199.99,
+            "category": "Monitory",
+            "brand": "Samsung",
+            "title": "Samsung S27R350FHUX",
+            "description": "Nice monitor for gamers made by gamers",
+            "strictdescription": "Stworzony, by wygrywać, monitor Samsung S27R350FHUX otworzy przed Tobą zupełnie nowy świat gamingu. Dzięki najnowszym technologiom zapewnia niezwykle płynną rozgrywkę, wyciągając z gry to, co najlepsze. S27R350FHUX zachwyci Cię wysoką jakością obrazu w szczegółowej rozdzielczości Full HD, a także agresywnym designem. Graj intensywnie i reaguj skutecznie – masz przewagę.",
+            "image": "https://images.samsung.com/is/image/samsung/p6pim/pl/lf27t350fhrxen/gallery/pl-t35f-363583-lf27t350fhrxen-403431628?$650_519_PNG$",
+            "comments": ["Po miesiacu użytkowania pojawiły się bad pixele :("],
+            "rating": [3,3,3,3,2,5]
+        },
+        {
+            "id": 2,
+            "price": 35.99,
+            "category": "Pamięć RAM",
+            "brand": "Viper",
+            "title": "Patriot 16GB (2x8GB) 3200MHz CL16 Viper 4 Blackout",
+            "description": "Pamięć RAM 2 razy 8GB firmy Viper są super szybkie i w ogóle są super.",
+            "strictdescription": " Pamięć RAM DDR4 Patriot Viper Steel 2x8GB. Niezależnie od tego, czy korzystasz z platformy Intel lub AMD, Twoja konfiguracja potrzebuje najlepszej i najszybszej pamięci RAM. Stworzona z myślą o prawdziwej wydajności seria Viper Steel stawi czoło obciążeniom, jakimi będzie poddawana nawet w najbardziej wymagających środowiskach komputerowych. Drapieżny design doskonale odnajdzie się w Twojej obudowie, a taktowanie 3200 MHz oraz opóźnienia CL16 zapewnią płynną obsługę gier oraz rozmaitych aplikacji.",
+            "image": "https://allegro.stati.pl/AllegroIMG/PRODUCENCI/PATRIOT/Viper-4-Blackout/1-moduly-x2.jpg",
+            "comments": ["Spoko, działa"],
+            "rating": [5,4,4,3,3]
+        },
+        {
+            "id": 3,
+            "price": 25.50,
+            "category": "Drukarki",
+            "brand": "Canon",
+            "title": "Canon Prima drukarka",
+            "description": "Drukarka, która występowała u jutubera.",
+            "strictdescription": "Urządzenie CANON Pixma TS3150 posiada kopiarkę, dzięki której możesz powielić dowolnie wybrany dokument czy zdjęcie. Takie opcje jak dopasowanie obrazu do strony lub wielokrotne kopiowanie to zdecydowane udogodnienia, dzięki którym korzystanie z urządzenia stanie się niezwykle proste i intuicyjne. Wygodę, jaką oferuje posiadanie kopiarki, docenisz w szczególności wtedy, gdy zajdzie potrzeba przekazania ręcznie wypełnionych dokumentów kilku osobom.",
+            "image": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2020/12/pr_2020_12_28_11_12_52_289_00.jpg",
+            "comments": ["Jutuber o niej nagrywał xD", "Ja pamiętam te drukarke"],
+            "rating": [3,2,4,5,5,3]
+        },
+        {
+            "id": 4,
+            "price": 219.99,
+            "category": "Monitory",
+            "brand": "Samsung",
+            "title": "SAMSUNG Odyssey 27''",
+            "description": "Super monitor z ekranem full HD i 144Hz.",
+            "strictdescription": "Dzięki czasowi reakcji wynoszącemu 1 ms, liczy się każdy ruch. Piksele zmieniają kolory niemal natychmiastowo, umożliwiając szybki przebieg akcji, która przypomina wydarzenia rozgrywające się w świecie rzeczywistym. Postaci na ekranie reagują tak szybko jak pozwala na to refleks gracza. Wypoczęte oczy wygrywają częściej. Tryby Eye Saver i Flicker Free",
+            "image": "https://images.samsung.com/is/image/samsung/p6pim/pl/lf27g35tfwuxen/gallery/pl-odyssey-g3-27g35t-lf27g35tfwuxen-371225801?$650_519_PNG$",
+            "comments": ["Prawdopodobnie najlepszy monitor na rynku", "Ostatnio zakupiony jako prezent, super trafiony. Polecam."],
+            "rating": [5, 4, 3, 5, 5, 4]
+        },
+        {
+            "id": 5,
+            "price": 124.99,
+            "category": "Monitory",
+            "brand": "Acer",
+            "title": "Acer Nitro VG240 23,8''",
+            "description": "Monitor z mottem rozdzielczość ma znaczenie.",
+            "strictdescription": "Rozdzielczość ma znaczenie, ciesz się niestamowitymi efektami gry na ekranie o rozdzielczości Full HD 1920x1080 przy jednoczesnym zachowaniu tej samej, wysokiej jakości kolorów. Krótki czas reakcji rzędu 1 ms oznacza, że obrazy odświeżają się z dużą częstotliwością, co pozwala na czerpanie ogromnej przyjemności grania bez opóźnień. Niesamowite efekty gry bez uszczerbku barw dzięki matrycy IPS zapewniającej czytelny obraz pod kątem do 178- stopni przy zachowaniu wyrazistych kolorów. ",
+            "image": "https://image.ceneostatic.pl/data/products/66893958/i-acer-nitro-vg240ybmiix-23-8-um-qv0ee-001.jpg",
+            "comments": ["Genialny do gierek", "Nawet niezły jak za te cenke", "Nie ma lepszego na rynku", "Jestem zadowolony z tego zakupu"],
+            "rating": [1,4,5,3,3,4, 4]
+        },
+        {
+            "id": 6,
+            "price": 423.50,
+            "category": "Akcesoria",
+            "brand": "Pandora",
+            "title": "Naszyjnik mocy",
+            "description": "Naszyjnik mocy, dzięki któremu można góry przenosić.",
+            "strictdescription": "Piękny naszyjnik naszpiclowany magicznymi mocami, dzięki którym można robić magiczne rzeczy, wyczaruj sobie żarcie, wode, piwo i czego tylko sobie zapragniesz gdyż to na serio działa. Warto dodać, że dodaje on specjalne staty dla graczy w grach.",
+            "image": "https://elori.pl/wp-content/uploads/2022/05/15.png",
+            "comments": ["Takiej mocy jeszcze nigdy nie czułem", "Normalnie bomba jak grom z jasnego nieba"],
+            "rating": [5,5,5]
+        },
+        {
+            "id": 7,
+            "price": 135.99,
+            "category": "Drukarki",
+            "brand": "Epson",
+            "title": "EPSON EcoTank L3250 ",
+            "description": "Drukarka, która pozwala na zaawansowany wydruk w twoim domu.",
+            "strictdescription": "Wydruk wysokiej jakości wielofunkcyjne urządzenie EPSON ECOTANK L3250 z możliwością drukowania bezprzewodowego to wysoka wydajność i niskie koszty eksploatacji, które zadowolą każdego, nawet najbardziej wymagającego użytkownika. Przekonaj się sam o magii tego sprzętu! Skanuj, drukuj i kopiuj do woli! Urządzenie posiada opcje skanowania, drukowania oraz kopiowania dokumentów. Wszystkie te funkcje sprawiają, że sprzęt ten będzie idealny zarówno do pracy w biurze, jak i do wykorzystania w domu. Możesz drukować wybrane zdjęcia w kolorze, jak i na czarno. ",
+            "image": "https://i8.amplience.net/i/epsonemear/30169-productpicture-hires-en-et-2810_main?$product-xlarge$&img404=missing_product&v=1",
+            "comments": ["Super, pięknie drukuje i nie ma do czego się przyczepić", "Uważam, że to jeden z lepszy zakupów dla naszego domu, przydaje się do wydruków i do pracy i dla synka do szkoły, polecam wszystkim których napotkam."],
+            "rating": [5,4,3,2,5,3,4]
+        },
+        {
+            "id": 8,
+            "price": 19.99,
+            "category": "Telefony",
+            "brand": "Nokia",
+            "title": "Nokia 3000",
+            "description": "Fajny telefon nie do rozwalenia",
+            "strictdescription": "Telefon typu Nokia, tzw. cegła. Nie do podrobienia nie do rozwalenia, polecany każdemu kto posiada problemy z agresją czy też samym sobą.",
+            "image": "https://ecsmedia.pl/c/telefon-komorkowy-nokia-130-dual-sim-b-iext40263360.jpg",
+            "comments": ["Super fonik", "Gówno, nie działa i się rozwaliło"],
+            "rating": [5,4,2,5,5,5,3]
+        },
+        {
+            "id": 9,
+            "price": 44.99,
+            "category": "Akcesoria",
+            "brand": "HP",
+            "title": "Plecak na laptopa HP",
+            "description": "Mocny plecak HP, na laptopa 15.6 cali i mniejszego. Kolor szary.",
+            "strictdescription": "Przedstawiamy 15,6-calowy plecak podróżny HP Renew. Wykonane z trwałych materiałów włóknistych. Uporządkuj zawartość dzięki licznym kieszeniom i zabezpiecz plecak wygodnymi paskami. Nie pozwól, aby podróże odbiły się na Twojej technologii. Wyściełane wnętrze i obudowa zapewniają odpowiednią ochronę laptopów 13,3-calowych, 14,1-calowych i 15,6-calowych, a także akcesoriów i dokumentów. Dodatkowo ten plecak jest wykonany z materiałów, które chronią przed zadrapaniami, uderzeniami, kurzem i wodą.",
+            "image": "https://www.hp.com/pl-pl/shop/media/catalog/product/c/0/c07145855_cus.png?store=pl-pl&image-type=image",
+            "comments": ["Niezły plecak nie narzekam", "Niestety kupiłem i przegroda na laptopa była za mała, ale i tak nie narzekam"],
+            "rating": [5,4,2,5,5,5,3,1,2,3,4]
+        }
+    ]
+}
