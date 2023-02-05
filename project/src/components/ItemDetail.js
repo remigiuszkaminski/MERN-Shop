@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom';
 import { addToCart } from '../actions/CartActions';
 import {useFormik} from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { ItemContext } from '../itemsContext.js/ItemContext';
+import GenerateItems from './GenerateItems';
 export default function ItemDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -12,7 +15,10 @@ export default function ItemDetail() {
     const [ocena , setOceny] = useState([]);
     const [srednia, setSrednia] = useState(0);
     const [updateItem, setUpdateItem] = useState(false);
-    const [admin, setAdmin] = useState(true);
+    const [admin, setAdmin] = useState(false);
+    const [items, setItems] = useContext(ItemContext);
+    const [newItemAdded, setNewItemAdded] = useState(false);
+
 
     useEffect(() => {
         fetch(`http://localhost:5000/getproduct/${id}`)
@@ -132,7 +138,60 @@ export default function ItemDetail() {
     });
 
 
+    function handleDelete() {
+        setItems(items.filter((el) => el._id !== item._id))
+    }
 
+    const formik3 = useFormik({
+        initialValues: {
+            price: 0,
+            category: "",
+            brand: "",
+            title: "",
+            description: "",
+            strictdescription: "",
+            image: "",
+        },
+        onSubmit: (values) => {
+            fetch(`http://localhost:5000/editproduct/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    price: values.price,
+                    category: values.category,
+                    brand: values.brand,
+                    title: values.title,
+                    description: values.description,
+                    strictdescription: values.strictdescription,
+                    image: values.image
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Zaktualizowano produkt')
+                setNewItemAdded(true)
+                setUpdateItem(true)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            formik3.resetForm();
+                    
+
+        },
+
+    });
+
+    function handleEditAdmin() {
+        if(admin) {
+            setAdmin(false)
+        } else {
+            setAdmin(true)
+        }
+    }
 
     
     
@@ -163,10 +222,40 @@ export default function ItemDetail() {
                     <p className='text-2xl mt-2'>Cena produktu: {item.price}$</p>
                     <div className='flex flex-wrap font-bold mt-8'>Opis danego przedmiotu: <p className='font-normal'>{item.strictdescription}</p></div>
                     <div className='mt-8'>
-                        <p className='text-4xl'>Opinie:</p>
+                        <div className='text-4xl'>Opinie:</div>
                         <div className='mt-4 h-max py-2.5 px-4 text-sm font-semibold text-white bg-gray-400 rounded-l-lg rounded-r-lg shadow-lg'>
                             {item.comments.map((el, i) => (
-                                <div key={i} className='py-2.5 px-4 border-2 rounded-lg mt-2'>{el.name}: {el.comment}</div>
+                                <div key={i} className='py-2.5 px-4 border-2 rounded-lg mt-2'>{el.name}: {el.comment}
+                                {admin ? (
+                                    <div>
+                                    <button className='rounded-full shadow-lg p-2 bg-red-600 border-black text-white mt-2 w-full' onClick={
+                                        () => {
+                                            fetch(`http://localhost:5000/deletecomment/${id}`, {
+                                                method: 'PUT',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    },
+                                                    body: JSON.stringify({
+                                                        name: el.name,
+                                                        comment: el.comment
+                                                        }),
+                                                    })
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        console.log('Success:', data);
+                                                        alert('Usunięto komentarz')
+                                                        setUpdateItem(true)
+                                                    })
+                                                    .catch((error) => {
+                                                        console.error('Error:', error);
+                                                    });
+                                        }
+                                    }>Usuń</button>
+                                    </div>
+                                ) : null }
+                                </div>
+
+
                             ))}
                         </div>
                     </div>
@@ -208,6 +297,7 @@ export default function ItemDetail() {
                     </form>
                     {admin ? (
                         <div>
+                            <div>
                             <p>Usuń produkt</p>
                             <button onClick={
                                 () => {
@@ -217,7 +307,9 @@ export default function ItemDetail() {
                                         .then(response => {
                                             if (response.status === 200) {
                                                 alert('Produkt został usunięty')
+                                                handleDelete()
                                                 navigate('/')
+                                                
                                             } else {
                                                 alert('Coś poszło nie tak')
                                             }
@@ -225,13 +317,95 @@ export default function ItemDetail() {
                                         
                                 }
                             } className='rounded-full shadow-lg p-2 bg-red-600 border-black text-white mt-2 w-full'>Usuń</button>
+                            </div>
+                            <div>
+                            <form onSubmit={formik3.handleSubmit} className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96'>
+                                <p className='text-xl mb-4'>Zedytuj ten przedmiot.</p>
+                                <div className='mb-4'>
+                                    <input
+                                    className='shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                                    name='price'
+                                    type='number'
+                                    placeholder='Cena'
+                                    required
+                                    onChange={formik3.handleChange}
+                                    value={formik3.values.price}
+                                    />
+                                </div>
+                                <div className='mb-4'>
+                                    <input
+                                    className='shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                                    name='category'
+                                    placeholder='Kategoria'
+                                    required
+                                    onChange={formik3.handleChange}
+                                    value={formik3.values.category}
+                                    />
+                                </div>
+                                <div className='mb-4'>
+                                    <input
+                                    className='shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                                    name='brand'
+                                    placeholder='Marka'
+                                    required
+                                    onChange={formik3.handleChange}
+                                    value={formik3.values.brand}
+                                    />
+                                </div>
+                                <div className='mb-4'>
+                                    <input
+                                    className='shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                                    name='title'
+                                    placeholder='Tytuł'
+                                    required
+                                    onChange={formik3.handleChange}
+                                    value={formik3.values.title}
+                                    />
+                                </div>
+                                <div className='mb-4'>
+                                    <input
+                                    className='shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                                    name='description'
+                                    placeholder='Opis krótki'
+                                    required
+                                    onChange={formik3.handleChange}
+                                    value={formik3.values.description}
+                                    />
+                                </div>
+                                <div className='mb-4'>
+                                    <input
+                                    className='shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                                    name='strictdescription'
+                                    placeholder='Opis długi'
+                                    required
+                                    onChange={formik3.handleChange}
+                                    value={formik3.values.strictdescription}
+                                    />
+                                </div>
+                                <div className='mb-4'>
+                                    <input
+                                    className='shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                                    name='image'
+                                    placeholder='Link do obrazka'
+                                    required
+                                    onChange={formik3.handleChange}
+                                    value={formik3.values.image}
+                                    />
+                                </div>
+                                <button type='submit' className='p-2 bg-green-600 rounded-full text-white'>Edytuj przedmiot</button>
+                                {newItemAdded && <GenerateItems newItemAdded={newItemAdded} setNewItemAdded={setNewItemAdded}/>}
+                            </form>
+                            </div>
                         </div>
                             ) : null }
+                            <div>
+                                <button onClick={handleEditAdmin} className='p-2 bg-green-600 rounded-full text-white'>Admin</button>
+                            </div>
 
 
                 </div>
 
-
+                
             </div>
         
             

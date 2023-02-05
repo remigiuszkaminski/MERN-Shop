@@ -171,7 +171,7 @@ export default function SearchPanel() {
                             <p>Cena z dostawą: {el.price+10}$</p></div>
                             <div className='absolute top-0 left-0 opacity-0 w-full h-full flex flex-col justify-center items-center transition-opacity' >
                                 <button className='mb-4 bg-blue-400 w-6/12 text-base rounded-lg' onClick={() => dispatch(addToCart(el))}>🛒</button>
-                                <button className='mb-4 bg-blue-400 w-6/12 text-base rounded-lg'><Link to={`/${el.id}`} className='hover:text-blue-700'>Info 📄</Link></button>
+                                <button className='mb-4 bg-blue-400 w-6/12 text-base rounded-lg'><Link to={`/${el._id}`} className='hover:text-blue-700'>Info 📄</Link></button>
                             </div>
                         </div>
                         </li>

@@ -56,7 +56,7 @@ recordRoutes.route("/getproduct/:id").get(function (req, res) {
     });
 });
 
-recordRoutes.route("/editproduct/:id").post(function (req, res) {
+recordRoutes.route("/editproduct/:id").put(function (req, res) {
     let db_connect = dbo.getDb("shop");
     let myquery = { _id: ObjectId(req.params.id) };
     let newvalues = {
@@ -110,6 +110,24 @@ recordRoutes.route("/addcomment/:id").post(function (req, res) {
 });
 
 
+recordRoutes.route("/deletecomment/:id").put(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    let myquery = { _id: ObjectId(req.params.id) };
+    let newvalues = {
+        $pull: {
+            comments: {
+                name: req.body.name,
+                comment: req.body.comment,
+            },
+        },
+    };
+    db_connect.collection("products").updateOne(myquery, newvalues, function (err, res) {
+        if (err) throw err;
+        console.log("Usunięto komentarz z produktu w bazie danych");
+    });
+    res.status(200).json({ message: "Comment deleted successfully" });
+});
+
 recordRoutes.route("/addrating/:id").post(function (req, res) {
     let db_connect = dbo.getDb("shop");
     let myquery = { _id: ObjectId(req.params.id) };
@@ -123,6 +141,64 @@ recordRoutes.route("/addrating/:id").post(function (req, res) {
         console.log("Dodano ocenę do produktu w bazie danych");
     });
     res.status(200).json({ message: "Rating added successfully" });
+});
+
+
+recordRoutes.route("/getsum").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    db_connect
+        .collection("products")
+        .aggregate([
+            {
+                $group: {
+                    _id: null,
+                    sum: { $sum: "$price" },
+                },
+            },
+        ])
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
+recordRoutes.route("/getcommentsval").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    db_connect
+        .collection("products")
+        .aggregate([
+            {
+                $project: {
+                    _id: 1,
+                    title: 1,
+                    comments: 1,
+                    commentsCount: { $size: "$comments" },
+                },
+            },
+        ])
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
+
+recordRoutes.route("/getcategorysum").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    db_connect
+        .collection("products")
+        .aggregate([
+            {
+                $group: {
+                    _id: "$category",
+                    count: { $sum: 1 },
+                },
+            },
+        ])
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
 });
 
 

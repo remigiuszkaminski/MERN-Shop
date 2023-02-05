@@ -6,14 +6,13 @@ import { ItemContext } from '../itemsContext.js/ItemContext';
 export default function GenerateItems() {
     const [items, setItems] = useContext(ItemContext);
     useEffect(() => {
-        fetch("http://localhost:5000/getproducts")
-            .then((res) => res.json())
-            .then((data) => {
-                setItems(data);
 
-                
-            }
-            );
+        const fetchData = async () => {
+            const res = await fetch("http://localhost:5000/getproducts")
+            const data = await res.json();
+            setItems(data);
+        };
+        fetchData();
 
         
     }, [setItems]);
