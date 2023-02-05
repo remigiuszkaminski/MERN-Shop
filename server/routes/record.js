@@ -47,6 +47,15 @@ recordRoutes.route("/getproducts").get(function (req, res) {
 });
 
 
+recordRoutes.route("/getproduct/:id").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    let myquery = { _id: ObjectId(req.params.id) };
+    db_connect.collection("products").findOne(myquery, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+
 recordRoutes.route("/editproduct/:id").post(function (req, res) {
     let db_connect = dbo.getDb("shop");
     let myquery = { _id: ObjectId(req.params.id) };

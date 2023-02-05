@@ -1,13 +1,13 @@
 import {useFormik} from 'formik';
-import React, {useContext} from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { ItemContext } from '../itemsContext.js/ItemContext';
+import React, {useState} from 'react';
+import GenerateItems from './GenerateItems';
+
 export default function DeliveryForm() {
-    const [items, setItems] = useContext(ItemContext)
+
+    const [newItemAdded, setNewItemAdded] = useState(false);
     
     const formik = useFormik({
         initialValues: {
-            id: uuidv4(),
             price: 0,
             category: "",
             brand: "",
@@ -15,28 +15,39 @@ export default function DeliveryForm() {
             description: "",
             strictdescription: "",
             image: "",
-            comments: [],
-            rating: [5]
         },
         onSubmit: (values) => {
-            setItems([...items, values])
-            formik.resetForm({
-                values: {
-                    id: uuidv4(),
-                    price: 0,
-                    category: "",
-                    brand: "",
-                    title: "",
-                    description: "",
-                    strictdescription: "",
-                    image: "",
-                    comments: [],
-                    rating: []
-                }
+            fetch('http://localhost:5000/addproduct', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    price: values.price,
+                    category: values.category,
+                    brand: values.brand,
+                    title: values.title,
+                    description: values.description,
+                    strictdescription: values.strictdescription,
+                    image: values.image
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Dodano nowy produkt')
+                setNewItemAdded(true);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
             });
+            formik.resetForm();
+                    
 
         },
+
     });
+
 
     return (
         <div>
@@ -114,6 +125,7 @@ export default function DeliveryForm() {
                     />
                 </div>
                 <button type='submit' className='p-2 bg-green-600 rounded-full text-white'>Dodaj nowy przedmiot</button>
+                {newItemAdded && <GenerateItems newItemAdded={newItemAdded} setNewItemAdded={setNewItemAdded}/>}
             </form>
         </div>
     )

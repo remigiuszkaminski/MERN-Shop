@@ -150,7 +150,7 @@ export default function SearchPanel() {
             <div className='flex w-2/3'>
                 <ul className='grid grid-cols-3 gap-24'>
                     {filteredItems.map((el, i) => (
-                        <li key={el.id}>
+                        <li key={el._id}>
                             <div key={i} className='w-76 h-86 rounded-lg overflow-hidden shadow-lg 1/4 relative' onMouseEnter={(e) => {
                                 e.currentTarget.lastChild.style.opacity = 1;
                                 e.currentTarget.lastChild.style.pointerEvents = 'auto';

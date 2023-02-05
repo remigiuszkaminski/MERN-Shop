@@ -2,12 +2,20 @@ import { React, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { ItemContext } from '../itemsContext.js/ItemContext';
-import data from '../data.json'
+
 export default function GenerateItems() {
     const [items, setItems] = useContext(ItemContext);
-
     useEffect(() => {
-        setItems(data.items);
+        fetch("http://localhost:5000/getproducts")
+            .then((res) => res.json())
+            .then((data) => {
+                setItems(data);
+
+                
+            }
+            );
+
+        
     }, [setItems]);
     return (
         <div>
