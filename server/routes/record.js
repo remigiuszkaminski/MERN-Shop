@@ -175,6 +175,7 @@ recordRoutes.route("/getcommentsval").get(function (req, res) {
                     commentsCount: { $size: "$comments" },
                 },
             },
+            { $sort: { commentsCount: -1 } },
         ])
         .toArray(function (err, result) {
             if (err) throw err;
@@ -194,6 +195,76 @@ recordRoutes.route("/getcategorysum").get(function (req, res) {
                     count: { $sum: 1 },
                 },
             },
+            { $sort: { count: -1 } },
+        ])
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
+
+recordRoutes.route("/getbestrating").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    db_connect
+        .collection("products")
+        .aggregate([
+            {
+                $project: {
+                    _id: 1,
+                    title: 1,
+                    rating: 1,
+                    ratingCount: { $size: "$rating" },
+                    ratingAvg: { $avg: "$rating" },
+                },
+            },
+            { $sort: { ratingAvg: -1 } },
+            { $limit: 5 },
+        ])
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
+
+
+recordRoutes.route("/getcheapest").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    db_connect
+        .collection("products")
+        .aggregate([
+            {
+                $match: {
+                    category: { $ne: "Akcesoria" },
+                },
+            },
+            { $sort: { price: 1 } },
+            { $limit: 5 },
+        ])
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
+
+recordRoutes.route("/getmostactiveuser").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    db_connect
+        .collection("products")
+        .aggregate([
+            {
+                $unwind: "$comments",
+            },
+            {
+                $group: {
+                    _id: "$comments.name",
+                    count: { $sum: 1 },
+                },
+            },
+            { $sort: { count: -1 } },
+            { $limit: 5 },
         ])
         .toArray(function (err, result) {
             if (err) throw err;
