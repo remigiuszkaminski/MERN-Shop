@@ -33,8 +33,24 @@ export default function Cart() {
 
     console.log(deliveryFormik)
     function completingDelivery() {
-        dispatch(resetDeliveryForm())
-        dispatch(resetWholeCart())
+        fetch('http://localhost:5000/addhistory', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                price: cartItemsTotal.total
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            dispatch(resetDeliveryForm())
+            dispatch(resetWholeCart())
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
 
 

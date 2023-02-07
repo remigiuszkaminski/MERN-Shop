@@ -175,7 +175,8 @@ recordRoutes.route("/getcommentsval").get(function (req, res) {
                     commentsCount: { $size: "$comments" },
                 },
             },
-            { $sort: { commentsCount: -1 } },
+            { $sort: { commentsCount: -1, title: 1 } },
+            { $limit: 5 },
         ])
         .toArray(function (err, result) {
             if (err) throw err;
@@ -195,7 +196,7 @@ recordRoutes.route("/getcategorysum").get(function (req, res) {
                     count: { $sum: 1 },
                 },
             },
-            { $sort: { count: -1 } },
+            { $sort: { count: -1, _id: 1 } },
         ])
         .toArray(function (err, result) {
             if (err) throw err;
@@ -263,7 +264,7 @@ recordRoutes.route("/getmostactiveuser").get(function (req, res) {
                     count: { $sum: 1 },
                 },
             },
-            { $sort: { count: -1 } },
+            { $sort: { count: -1, _id: 1 } },
             { $limit: 5 },
         ])
         .toArray(function (err, result) {
@@ -272,6 +273,91 @@ recordRoutes.route("/getmostactiveuser").get(function (req, res) {
         });
 });
 
+
+recordRoutes.route("/getproductscount").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    db_connect
+        .collection("products")
+        .aggregate([
+            {
+                $group: {
+                    _id: null,
+                    count: { $sum: 1 },
+                },
+            },
+        ])
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
+
+recordRoutes.route("/addhistory").post(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    let myobj = {
+        price: req.body.price,
+    };
+    db_connect.collection("history").insertOne(myobj, function (err, res) {
+        if (err) throw err;
+        console.log("Dodano historię do bazy danych");
+    });
+    res.status(200).json({ message: "History added successfully" });
+});
+
+
+recordRoutes.route("/gethistory").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    db_connect
+        .collection("history")
+        .aggregate([
+            {
+                $group: {
+                    _id: null,
+                    count: { $sum: 1 },
+                    sum: { $sum: "$price" },
+                },
+            },
+        ])
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
+
+recordRoutes.route("/search/:title").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    let title = req.params.title;
+    db_connect
+        .collection("products")
+        .find({ title: { $regex: title } })
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
+
+
+recordRoutes.route("/getmostexpensive").get(function (req, res) {
+    let db_connect = dbo.getDb("shop");
+    db_connect
+        .collection("products")
+        .aggregate([
+            {
+                $match: {
+                    category: { $ne: "Akcesoria" },
+                },
+            },
+            { $sort: { price: -1 } },
+            { $limit: 5 },
+        ])
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
 
 
 module.exports = recordRoutes;
